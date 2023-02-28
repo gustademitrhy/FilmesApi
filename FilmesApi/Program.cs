@@ -1,5 +1,3 @@
-
-
 using FilmesApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +7,7 @@ var connection = builder.Configuration.GetConnectionString
 ("FilmeConnection");
 
 builder.Services.AddDbContext<FilmeContext>(opts =>
-opts.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+opts.UseSqlServer(connection));
 
 // Add services to the container.
 
