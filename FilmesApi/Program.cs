@@ -7,7 +7,10 @@ var connection = builder.Configuration.GetConnectionString
 ("FilmeConnection");
 
 builder.Services.AddDbContext<FilmeContext>(opts =>
-opts.UseSqlServer(connection));
+opts.UseSqlServer(connection)); 
+
+builder.Services.
+    AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 
