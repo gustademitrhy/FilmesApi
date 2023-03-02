@@ -64,28 +64,28 @@ public class FilmeController : ControllerBase
     }
 
 
-    //[HttpPatch("{id}")]
-    //public IActionResult AtualizarFilmeParcial(int id,
-    //    JsonPatchDocument<UpdateFilmeDto> pacth)
-    //{
-    //    var filme = _context.Filmes.FirstOrDefault(filme =>
-    //    filme.Id == id);
-    //    if (filme == null) return NotFound();
+    [HttpPatch("{id}")]
+    public IActionResult AtualizarFilmeParcial(int id,
+        JsonPatchDocument<UpdateFilmeDto> patch)
+    {
+        var filme = _context.Filmes.FirstOrDefault(filme =>
+        filme.Id == id);
+        if (filme == null) return NotFound();
 
-    //    var filmeParaAtualizar = _mapper.Map<UpdateFilmeDto>(filme);
+        var filmeParaAtualizar = _mapper.Map<UpdateFilmeDto>(filme);
 
-    //    pacth.ApplyTo(filmeParaAtualizar, ModelState);
+        patch.ApplyTo(filmeParaAtualizar, ModelState);
 
-    //    if (!TryValidateModel(filmeParaAtualizar))
-    //    {
-    //        return ValidationProblem(ModelState);
-    //    }
+        if (!TryValidateModel(filmeParaAtualizar))
+        {
+            return ValidationProblem(ModelState);
+        }
 
-    //    _mapper.Map(filmeParaAtualizar, filme);
-    //    var resut = _context.SaveChanges();
-    //    return Ok(resut);
+        _mapper.Map(filmeParaAtualizar, filme);
+        _context.SaveChanges();
+        return Ok("Deu certo");
 
-    //}
+    }
 
 
 

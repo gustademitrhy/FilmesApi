@@ -12,6 +12,10 @@ opts.UseSqlServer(connection));
 builder.Services.
     AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
