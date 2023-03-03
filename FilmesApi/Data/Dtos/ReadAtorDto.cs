@@ -2,11 +2,8 @@
 
 namespace FilmesApi.Data.Dtos
 {
-    public class ReadFilmesDto
+    public class ReadAtorDto
     {
-
-        [Required]
-        public int Id { get; set; }
 
         [Required(ErrorMessage = "O Nome do ator é obrigatorio")]
         public string Nome { get; set; }
@@ -17,7 +14,6 @@ namespace FilmesApi.Data.Dtos
 
 
         public int filmesFeito { get; set; }
-
         public DateTime HoraDaConsulta  { get; set;} = DateTime.Now;
 }
     }

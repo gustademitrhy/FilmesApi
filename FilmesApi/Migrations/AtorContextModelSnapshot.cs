@@ -3,19 +3,16 @@ using FilmesApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace FilmesApi.Migrations
 {
-   
-    [Migration("20230228200046_CriandoTabelaDeFilmesDeAcao")]
-    partial class CriandoTabelaDeFilmesDeAcao
+    [DbContext(typeof(AtorContext))]
+    partial class AtorContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +21,7 @@ namespace FilmesApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FilmesApi.Models.FilmesDeAcao", b =>
+            modelBuilder.Entity("FilmesApi.Models.Ator", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,21 +29,19 @@ namespace FilmesApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Duracao")
+                    b.Property<int>("Idade")
                         .HasColumnType("int");
 
-                    b.Property<string>("Genero")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Titulo")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("filmesFeito")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Filmes");
+                    b.ToTable("Atores");
                 });
 #pragma warning restore 612, 618
         }

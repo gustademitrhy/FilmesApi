@@ -35,9 +35,9 @@ public class FilmeController : ControllerBase
 
 
     [HttpGet]
-    public IEnumerable<ReadFilmesDto> RecuparFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadAtorDto> RecuparFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
-        return _mapper.Map<List<ReadFilmesDto>>( _context.Filmes.Skip(skip).Take(take));
+        return _mapper.Map<List<ReadAtorDto>>( _context.Filmes.Skip(skip).Take(take));
     }
 
 
@@ -46,7 +46,7 @@ public class FilmeController : ControllerBase
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
         if (filme == null) return NotFound();
-        var filmeDto = _mapper.Map<ReadFilmesDto>(filme);   
+        var filmeDto = _mapper.Map<ReadAtorDto>(filme);   
         return Ok(filmeDto);
     }
 
