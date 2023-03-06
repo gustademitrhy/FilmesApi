@@ -11,10 +11,11 @@ namespace FilmesApi.Controllers;
 [Route("[controller]")]
 public class FilmeController : ControllerBase
 {
-    private FilmeContext _context;
+
+    private CartazContext _context;
     private IMapper _mapper;
 
-    public FilmeController(FilmeContext context, IMapper mapper)
+    public FilmeController(CartazContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
@@ -25,6 +26,7 @@ public class FilmeController : ControllerBase
     [HttpPost]
     public IActionResult AdicionarFilme([FromBody] CreateFilmeDto filmeDto)
     {
+
         var filme = _mapper.Map<Filme>(filmeDto);
 
         _context.Filmes.Add(filme);
@@ -35,9 +37,9 @@ public class FilmeController : ControllerBase
 
 
     [HttpGet]
-    public IEnumerable<ReadAtorDto> RecuparFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadFilmesDto> RecuparFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
-        return _mapper.Map<List<ReadAtorDto>>( _context.Filmes.Skip(skip).Take(take));
+        return _mapper.Map<List<ReadFilmesDto>>( _context.Filmes.Skip(skip).Take(take));
     }
 
 
@@ -46,7 +48,7 @@ public class FilmeController : ControllerBase
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
         if (filme == null) return NotFound();
-        var filmeDto = _mapper.Map<ReadAtorDto>(filme);   
+        var filmeDto = _mapper.Map<ReadFilmesDto>(filme);   
         return Ok(filmeDto);
     }
 

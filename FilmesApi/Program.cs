@@ -7,11 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connection = builder.Configuration.GetConnectionString
 ("FilmeConnection");
 
-builder.Services.AddDbContext<FilmeContext>(opts =>
+builder.Services.AddDbContext<CartazContext>(opts =>
 opts.UseSqlServer(connection));
 
-builder.Services.AddDbContext<AtorContext>(opts =>
-opts.UseSqlServer(connection));
 
 
 builder.Services.

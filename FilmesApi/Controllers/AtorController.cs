@@ -4,7 +4,7 @@ using FilmesApi.Data.Dtos;
 using FilmesApi.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace FilmesApi.Controllers;
 
@@ -14,10 +14,10 @@ namespace FilmesApi.Controllers;
 
 public class AtorController : ControllerBase
 {
-    private AtorContext _context1;
+    private CartazContext _context1;
     private IMapper _mapper1;
 
-    public AtorController(AtorContext context, IMapper mapper)
+    public AtorController(CartazContext context, IMapper mapper)
     {
         _context1 = context;
         _mapper1 = mapper;
@@ -29,8 +29,10 @@ public class AtorController : ControllerBase
         _context1.Atores.Add(ator);
         _context1.SaveChanges();
         return CreatedAtAction(nameof(RecuperarAtorPorId), new { id = ator.Id }, ator);
-        
     }
+
+
+
 
     [HttpGet]
     public IEnumerable<Ator> RecuperaAtor([FromQuery] int skip = 0,
@@ -49,8 +51,8 @@ public class AtorController : ControllerBase
 
     }
 
-    [HttpPut("{id}")]
 
+    [HttpPut("{id}")]
     public IActionResult AtualizarAtor(int id, [FromBody] UpdateAtorDto AtorDto)
     {
         var ator = _context1.Atores.FirstOrDefault(ator => ator.Id == id);
@@ -81,8 +83,8 @@ public class AtorController : ControllerBase
         return Ok("Deu certo de Novo Meu Nobre!!!! Alegria ");
     }
 
-    [HttpDelete("{id}")]
 
+    [HttpDelete("{id}")]
     public IActionResult DeteleAtor(int id)
     {
         var ator = _context1.Atores.FirstOrDefault(ator => ator.Id == id);
