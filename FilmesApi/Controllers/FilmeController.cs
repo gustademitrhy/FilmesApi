@@ -4,6 +4,7 @@ using FilmesApi.Data.Dtos;
 using FilmesApi.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmesApi.Controllers;
 
@@ -26,25 +27,24 @@ public class FilmeController : ControllerBase
     [HttpPost]
     public IActionResult AdicionarFilme([FromBody] CreateFilmeDto filmeDto)
     {
-
         var filme = _mapper.Map<Filme>(filmeDto);
 
         _context.Filmes.Add(filme);
-        _context.SaveChanges();
-        return CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id },
+      _context.SaveChanges();
+        return CreatedAtAction(nameof(RecuperarFilmePorId), new { id = filme.Id },
              filme);
     }
 
 
     [HttpGet]
-    public IEnumerable<ReadFilmesDto> RecuparFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadFilmesDto> RecupararFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
         return _mapper.Map<List<ReadFilmesDto>>( _context.Filmes.Skip(skip).Take(take));
     }
 
 
     [HttpGet("{id}")]
-    public IActionResult RecuperaFilmePorId(int id)
+    public IActionResult RecuperarFilmePorId(int id)
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
         if (filme == null) return NotFound();
@@ -61,7 +61,7 @@ public class FilmeController : ControllerBase
         if (filme == null) return NotFound();
         _mapper.Map(filmeDto, filme);
         _context.SaveChanges();
-        return NoContent();
+        return Ok("Alegria!! Deu certo ");
 
     }
 
@@ -85,7 +85,7 @@ public class FilmeController : ControllerBase
 
         _mapper.Map(filmeParaAtualizar, filme);
         _context.SaveChanges();
-        return Ok("Deu certo");
+        return Ok("Alegria!!! Deu certo");
 
     }
 

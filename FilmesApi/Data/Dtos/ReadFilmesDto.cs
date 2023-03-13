@@ -4,6 +4,7 @@ namespace FilmesApi.Data.Dtos
 {
     public class ReadFilmesDto
     {
+       
         [Required(ErrorMessage = "O título do filme é obrigatorio")]
         public string Titulo { get; set; }
 

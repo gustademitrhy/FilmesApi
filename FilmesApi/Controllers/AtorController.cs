@@ -24,15 +24,13 @@ public class AtorController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AdiconarAtores([FromBody] Ator ator)
+    public IActionResult AdiconarAtores([FromBody] CreateAtorDto atorDto)
     {
+        var ator = _mapper1.Map<Ator>(atorDto);
         _context1.Atores.Add(ator);
         _context1.SaveChanges();
         return CreatedAtAction(nameof(RecuperarAtorPorId), new { id = ator.Id }, ator);
     }
-
-
-
 
     [HttpGet]
     public IEnumerable<Ator> RecuperaAtor([FromQuery] int skip = 0,
@@ -82,6 +80,7 @@ public class AtorController : ControllerBase
         _context1.SaveChanges();
         return Ok("Deu certo de Novo Meu Nobre!!!! Alegria ");
     }
+
 
 
     [HttpDelete("{id}")]
