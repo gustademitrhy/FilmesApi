@@ -22,15 +22,7 @@ public class CartazContext : DbContext
         modelBuilder.Entity<Elenco>()
             .HasKey(fa => new { fa.FilmeId, fa.AtorId });
 
-        modelBuilder.Entity<Elenco>()
-            .HasOne(fa => fa.Filmes)
-            .WithMany(f => f.ElencoFilme)
-            .HasForeignKey(fa => fa.FilmeId);
-
-        modelBuilder.Entity<Elenco>()
-            .HasOne(fa => fa.Atore)
-            .WithMany(a => a.ElencoAtore)
-            .HasForeignKey(fa => fa.AtorId);
+     
     }
 
 

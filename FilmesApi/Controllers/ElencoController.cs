@@ -1,5 +1,6 @@
 ﻿
 using FilmesApi.Data;
+using FilmesApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,14 +20,21 @@ public class ElencoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetFilmesComAtores()
+    public IEnumerable<Elenco> RecuperaAtor([FromQuery] int skip = 0,
+      [FromQuery] int take = 50)
     {
-        var filmesComAtores = await _context.Filmes
-            .Include(f => f.ElencoFilme)
-            .ThenInclude(fa => fa.Atore)
-            .ToListAsync();
-
-        return Ok(filmesComAtores);
+        return _context.Elenco.Skip(skip).Take(take);
+        
     }
+
+    [HttpGet("{id}")]
+    public IActionResult RecuperarAtorPorId(int id)
+    {
+        var ator = _context.Elenco.FirstOrDefault(ator => ator.FilmeId == id);
+        if (ator == null) return NotFound();
+        return Ok(ator);
+
+    }
+
 
 }
