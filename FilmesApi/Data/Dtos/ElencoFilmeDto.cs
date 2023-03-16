@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FilmesApi.Data.Dtos
 {
-    public class ElencoDto
+    public class ElencoFilmeDto
     {
         public string Titulo { get; set; }
         public int Duracao { get; set; }

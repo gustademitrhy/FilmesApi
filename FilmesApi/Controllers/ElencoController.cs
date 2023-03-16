@@ -30,14 +30,14 @@ public class ElencoController : ControllerBase
     }
 
 
-    [HttpPost]
-    public IActionResult AdiconarElenco([FromBody] CreatElencoDto atorDto)
-    {
-        var elenco = _mapper.Map<Elenco>(atorDto);
-        _context.Elenco.Add(elenco);
-        _context.SaveChanges();
-         return Ok();
-    }
+    //[HttpPost]
+    //public IActionResult AdiconarElenco([FromBody] CreatElencoDto atorDto)
+    //{
+    //    var elenco = _mapper.Map<Elenco>(atorDto);
+    //    _context.Elenco.Add(elenco);
+    //    _context.SaveChanges();
+    //     return Ok();
+    //}
 
     [HttpGet]
     public IEnumerable<Elenco> RecuperaElenco([FromQuery] int skip = 0,
@@ -48,46 +48,67 @@ public class ElencoController : ControllerBase
     }
 
 
-  
 
-    [HttpGet("{Titulo}")]
-    public ActionResult<ElencoDto> GetFilme(string Titulo)
+
+    //[HttpGet("{Titulo do FIlme }")]
+    //public ActionResult<ElencoFilmeDto> BuscaElencoDoFilme(string Titulo)
+    //{
+    //    var filme = _context.Filmes.Where(f => f.Titulo.Equals(Titulo)).FirstOrDefault();
+    //    if (filme == null) return NotFound();
+
+
+    //    var elenco = _context.Elenco.Where(e => e.FilmeId == filme.Id).ToList();
+    //    if (elenco.Count == 0) return NotFound();
+
+
+
+
+    //    var atores = new List<Ator>();
+    //    foreach (var e in elenco)
+    //    {
+    //        var ator = _context.Atores.FirstOrDefault(ator => ator.Id.Equals(e.AtorId));
+    //        atores.Add((Ator)ator);
+    //    };
+
+
+
+    //    var filmeDTO = new ElencoFilmeDto
+    //    {
+    //        Titulo = Titulo,
+    //        Duracao = filme.Duracao,
+    //        Genero = filme.Genero,
+    //        Atores = atores
+    //    };
+
+    //    return filmeDTO;
+    //}
+
+
+    [HttpGet("{Titulo do Ator}")]
+
+    public ActionResult<ElencoAtorDto> BuscaAtorDoFilme(string Nome)
     {
-        var filme = _context.Filmes.Where(f => f.Titulo.Equals(Titulo)).FirstOrDefault();
+        var ator = _context.Atores.Where(a => a.Nome.Equals(Nome)).FirstOrDefault();
+        if (ator == null) return NotFound();
 
-        if (filme == null)
+        var elenco = _context.Elenco.Where(e => e.AtorId == ator.Id).ToList();
+        if (elenco.Count == 0) return NotFound();
+
+
+        var filmes = elenco
+            .Select(e => _context.Filmes.FirstOrDefault(f => f.Id.Equals(e.FilmeId)))
+            .ToList();
+
+
+        var atorDto = new ElencoAtorDto
         {
-            return NotFound();
-        }
-
-        var elenco = _context.Elenco.Where(e => e.FilmeId == filme.Id).ToList();
-
-        if (elenco.Count == 0)
-        {
-            return NotFound();
-        }
-
-        //var atores = new List<Ator>();
-
-        //foreach (var e in elenco)
-        //{
-        //    var ator = _context.Atores.FirstOrDefault(ator => ator.Id.Equals(e.AtorId));
-        //    atores.Add((Ator)ator);
-        //};
-
-        var atores = elenco
-            .Select(e => _context.Atores.FirstOrDefault(a => a.Id.Equals(e.AtorId)))
-             .ToList();
-
-        var filmeDTO = new ElencoDto
-        {
-           Titulo= Titulo,
-           Duracao= filme.Duracao,
-           Genero=filme.Genero,
-            Atores = atores
+            Nome = Nome,
+            Idade = ator.Idade,
+            filmesFeito = ator.filmesFeito,
+            Filmes = filmes
         };
 
-        return filmeDTO;
+        return atorDto;
     }
 
 
