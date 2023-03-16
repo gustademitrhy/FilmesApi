@@ -50,41 +50,41 @@ public class ElencoController : ControllerBase
 
 
 
-    //[HttpGet("{Titulo do FIlme }")]
-    //public ActionResult<ElencoFilmeDto> BuscaElencoDoFilme(string Titulo)
-    //{
-    //    var filme = _context.Filmes.Where(f => f.Titulo.Equals(Titulo)).FirstOrDefault();
-    //    if (filme == null) return NotFound();
+    [HttpGet("/BuscaElencoDoFilme/{Titulo}")]
+    public  ActionResult<ElencoFilmeDto> BuscaElencoDoFilme(string Titulo)
+    {
+        var filme =  _context.Filmes.Where(f => f.Titulo.Equals(Titulo)).FirstOrDefault();
+        if (filme == null) return NotFound();
 
 
-    //    var elenco = _context.Elenco.Where(e => e.FilmeId == filme.Id).ToList();
-    //    if (elenco.Count == 0) return NotFound();
-
-
-
-
-    //    var atores = new List<Ator>();
-    //    foreach (var e in elenco)
-    //    {
-    //        var ator = _context.Atores.FirstOrDefault(ator => ator.Id.Equals(e.AtorId));
-    //        atores.Add((Ator)ator);
-    //    };
+        var elenco = _context.Elenco.Where(e => e.FilmeId == filme.Id).ToList();
+        if (elenco.Count == 0) return NotFound();
 
 
 
-    //    var filmeDTO = new ElencoFilmeDto
-    //    {
-    //        Titulo = Titulo,
-    //        Duracao = filme.Duracao,
-    //        Genero = filme.Genero,
-    //        Atores = atores
-    //    };
 
-    //    return filmeDTO;
-    //}
+        var atores = new List<Ator>();
+        foreach (var e in elenco)
+        {
+            var ator = _context.Atores.FirstOrDefault(ator => ator.Id.Equals(e.AtorId));
+            atores.Add((Ator)ator);
+        };
 
 
-    [HttpGet("{Titulo do Ator}")]
+
+        var filmeDTO = new ElencoFilmeDto
+        {
+            Titulo = Titulo,
+            Duracao = filme.Duracao,
+            Genero = filme.Genero,
+            Atores = atores
+        };
+
+        return filmeDTO;
+    }
+
+
+    [HttpGet("/BuscaAtorDoFilme/{Nome}")]
 
     public ActionResult<ElencoAtorDto> BuscaAtorDoFilme(string Nome)
     {
