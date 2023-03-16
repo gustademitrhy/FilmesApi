@@ -30,14 +30,14 @@ public class ElencoController : ControllerBase
     }
 
 
-    //[HttpPost]
-    //public IActionResult AdiconarElenco([FromBody] CreatElencoDto atorDto)
-    //{
-    //    var elenco = _mapper.Map<Elenco>(atorDto);
-    //    _context.Elenco.Add(elenco);
-    //    _context.SaveChanges();
-    //     return Ok();
-    //}
+    [HttpPost]
+    public IActionResult AdiconarElenco([FromBody] CreatElencoDto atorDto)
+    {
+        var elenco = _mapper.Map<Elenco>(atorDto);
+        _context.Elenco.Add(elenco);
+        _context.SaveChanges();
+        return Ok();
+    }
 
     [HttpGet]
     public IEnumerable<Elenco> RecuperaElenco([FromQuery] int skip = 0,
