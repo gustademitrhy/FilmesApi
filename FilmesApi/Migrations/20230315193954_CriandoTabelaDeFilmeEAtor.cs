@@ -5,7 +5,7 @@
 namespace FilmesApi.Migrations
 {
     /// <inheritdoc />
-    public partial class CriandoTabelaDeAtoresEFilmes : Migration
+    public partial class CriandoTabelaDeFilmeEAtor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,20 +44,22 @@ namespace FilmesApi.Migrations
                 name: "Elenco",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false),
                     FilmeId = table.Column<int>(type: "int", nullable: false),
                     AtorId = table.Column<int>(type: "int", nullable: false)
+            
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilmeAtores", x => new { x.FilmeId, x.AtorId });
+                    table.PrimaryKey("PK_Elenco", x => new { x.FilmeId, x.AtorId });
                     table.ForeignKey(
-                        name: "FK_FilmeAtores_Atores_AtorId",
+                        name: "FK_Elenco_Atores_AtorId",
                         column: x => x.AtorId,
                         principalTable: "Atores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FilmeAtores_FilmesDeAcao_FilmeId",
+                        name: "FK_Elenco_FilmesDeAcao_FilmeId",
                         column: x => x.FilmeId,
                         principalTable: "FilmesDeAcao",
                         principalColumn: "Id",
@@ -65,8 +67,8 @@ namespace FilmesApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FilmeAtores_AtorId",
-                table: "FilmeAtores",
+                name: "IX_Elenco_AtorId",
+                table: "Elenco",
                 column: "AtorId");
         }
 
@@ -74,7 +76,7 @@ namespace FilmesApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FilmeAtores");
+                name: "Elenco");
 
             migrationBuilder.DropTable(
                 name: "Atores");

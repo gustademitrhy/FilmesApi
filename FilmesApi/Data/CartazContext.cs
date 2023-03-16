@@ -21,7 +21,6 @@ public class CartazContext : DbContext
     {
         modelBuilder.Entity<Elenco>()
             .HasKey(fa => new { fa.FilmeId, fa.AtorId });
-
      
     }
 

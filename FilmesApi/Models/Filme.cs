@@ -23,9 +23,4 @@ public class Filme
     [Range(70, 600, ErrorMessage = "A Duração deve ter entre 70 a 600 minutos")]
 
     public int Duracao { get; set; }
-
-    public ICollection<Elenco> ElencoFilme { get; set; }
-
-
-
 }

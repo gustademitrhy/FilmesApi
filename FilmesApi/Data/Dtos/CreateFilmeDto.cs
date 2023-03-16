@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FilmesApi.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace FilmesApi.Data.Dtos;
 
@@ -15,4 +16,7 @@ public class CreateFilmeDto
     [Required]
     [Range(70, 600, ErrorMessage = "A Duração deve ter entre 70 a 600 minutos")]
     public int Duracao { get; set; }
+
+
+
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmesApi.Migrations
 {
     [DbContext(typeof(CartazContext))]
-    [Migration("20230310155003_CriandoTabelaDeAtoresEFilmes")]
-    partial class CriandoTabelaDeAtoresEFilmes
+    [Migration("20230315193954_CriandoTabelaDeFilmeEAtor")]
+    partial class CriandoTabelaDeFilmeEAtor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,24 @@ namespace FilmesApi.Migrations
                     b.ToTable("Atores");
                 });
 
+            modelBuilder.Entity("FilmesApi.Models.Elenco", b =>
+                {
+                    b.Property<int>("FilmeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AtorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("FilmeId", "AtorId");
+
+                    b.HasIndex("AtorId");
+
+                    b.ToTable("Elenco");
+                });
+
             modelBuilder.Entity("FilmesApi.Models.Filme", b =>
                 {
                     b.Property<int>("Id")
@@ -72,31 +90,16 @@ namespace FilmesApi.Migrations
                     b.ToTable("FilmesDeAcao");
                 });
 
-            modelBuilder.Entity("FilmesApi.Models.FilmesAtores", b =>
-                {
-                    b.Property<int>("FilmeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AtorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilmeId", "AtorId");
-
-                    b.HasIndex("AtorId");
-
-                    b.ToTable("FilmeAtores");
-                });
-
-            modelBuilder.Entity("FilmesApi.Models.FilmesAtores", b =>
+            modelBuilder.Entity("FilmesApi.Models.Elenco", b =>
                 {
                     b.HasOne("FilmesApi.Models.Ator", "Ator")
-                        .WithMany("FilmeAtore")
+                        .WithMany("Elenco")
                         .HasForeignKey("AtorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FilmesApi.Models.Filme", "Filme")
-                        .WithMany("FilmeAtores")
+                        .WithMany("Elenco")
                         .HasForeignKey("FilmeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -108,12 +111,12 @@ namespace FilmesApi.Migrations
 
             modelBuilder.Entity("FilmesApi.Models.Ator", b =>
                 {
-                    b.Navigation("FilmeAtore");
+                    b.Navigation("Elenco");
                 });
 
             modelBuilder.Entity("FilmesApi.Models.Filme", b =>
                 {
-                    b.Navigation("FilmeAtores");
+                    b.Navigation("Elenco");
                 });
 #pragma warning restore 612, 618
         }

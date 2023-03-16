@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FilmesApi.Models;
 
@@ -23,6 +23,6 @@ public class Ator
 
     public int filmesFeito { get; set; }
 
-    public ICollection<Elenco> ElencoAtore { get; set; }
+  
 
 }
