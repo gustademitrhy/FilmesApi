@@ -47,7 +47,10 @@ public class FilmeController : ControllerBase
     public IActionResult RecuperarFilmePorId(int id)
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
-        if (filme == null) return NotFound();
+        if (filme == null)
+        {
+            throw new Exception("Filme  do ID não foi encontrado.!!");
+        }
         var filmeDto = _mapper.Map<ReadFilmesDto>(filme);   
         return Ok(filmeDto);
     }
@@ -58,7 +61,10 @@ public class FilmeController : ControllerBase
     {
         var filme = _context.Filmes.FirstOrDefault(filme =>
         filme.Id == id);
-        if (filme == null) return NotFound();
+        if (filme == null)
+        {
+            throw new Exception("Filme  do ID não foi encontrado.!!");
+        }
         _mapper.Map(filmeDto, filme);
         _context.SaveChanges();
         return Ok("Alegria!! Deu certo ");
@@ -72,7 +78,10 @@ public class FilmeController : ControllerBase
     {
         var filme = _context.Filmes.FirstOrDefault(filme =>
         filme.Id == id);
-        if (filme == null) return NotFound();
+        if (filme == null)
+        {
+            throw new Exception("Filme do ID não foi encontrado.!!");
+        }
 
         var filmeParaAtualizar = _mapper.Map<UpdateFilmeDto>(filme);
 
@@ -90,17 +99,19 @@ public class FilmeController : ControllerBase
     }
 
 
-
     [HttpDelete("{id}")]
     public IActionResult DeletaFilme(int id)
     {
         var filme = _context.Filmes.FirstOrDefault(filme =>
         filme.Id == id);
-        if (filme == null) return NotFound();
+        if (filme == null)
+        {
+            throw new Exception("Filme  do ID não foi encontrado.!!");
+        }
 
         _context.Filmes.Remove(filme);
         var resut = _context.SaveChanges();
-        return Ok(resut);
+        return Ok("Voçê é um gênio!! Parabéns!!");
 
     }
 

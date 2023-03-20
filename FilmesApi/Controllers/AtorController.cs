@@ -44,7 +44,10 @@ public class AtorController : ControllerBase
     public IActionResult RecuperarAtorPorId(int id)
     {
         var ator = _context1.Atores.FirstOrDefault(ator => ator.Id == id);
-        if (ator == null) return NotFound();
+        if (ator == null)
+        {
+            throw new Exception("Ator  do ID: não foi encontrado.!!");
+        }
         return Ok(ator);
 
     }
@@ -54,7 +57,10 @@ public class AtorController : ControllerBase
     public IActionResult AtualizarAtor(int id, [FromBody] UpdateAtorDto AtorDto)
     {
         var ator = _context1.Atores.FirstOrDefault(ator => ator.Id == id);
-        if (ator == null) return NotFound();
+        if (ator == null)
+        {
+            throw new Exception("Ator  do ID: não foi encontrado.!!");
+        }
         _mapper1.Map(AtorDto, ator);
         _context1.SaveChanges();
         return Ok("Deu certo Meu Nobre!!!! Alegria ");
@@ -65,7 +71,10 @@ public class AtorController : ControllerBase
     public IActionResult AtualizarAtorParcial(int id, JsonPatchDocument<UpdateAtorDto> patch)
     {
         var ator = _context1.Atores.FirstOrDefault(ator => ator.Id == id);
-        if (ator == null) return NotFound();
+        if (ator == null)
+        {
+            throw new Exception("Ator  do ID: não foi encontrado.!!");
+        }
 
         var ATorParaAtualizar = _mapper1.Map<UpdateAtorDto>(ator);
 
@@ -87,7 +96,10 @@ public class AtorController : ControllerBase
     public IActionResult DeteleAtor(int id)
     {
         var ator = _context1.Atores.FirstOrDefault(ator => ator.Id == id);
-        if (ator == null) return NotFound();
+        if (ator == null)
+        {
+            throw new Exception("Ator  do ID: não foi encontrado.!!");
+        }
 
         _context1.Atores.Remove(ator);
         _context1.SaveChanges();

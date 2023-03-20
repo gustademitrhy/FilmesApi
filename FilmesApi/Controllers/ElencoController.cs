@@ -48,17 +48,21 @@ public class ElencoController : ControllerBase
     }
 
 
-
-
     [HttpGet("/BuscaElencoDoFilme/{Titulo}")]
     public  ActionResult<ElencoFilmeDto> BuscaElencoDoFilme(string Titulo)
     {
         var filme =  _context.Filmes.Where(f => f.Titulo.Equals(Titulo)).FirstOrDefault();
-        if (filme == null) return NotFound();
+        if (filme == null)
+        {
+            throw new Exception("Filme  do ID não foi encontrado.!!");
+        }
 
 
         var elenco = _context.Elenco.Where(e => e.FilmeId == filme.Id).ToList();
-        if (elenco.Count == 0) return NotFound();
+        if (elenco.Count == 0)
+        {
+            throw new Exception("Elenco desse Filme não foi encontrado.!!");
+        }
 
 
 
@@ -89,15 +93,22 @@ public class ElencoController : ControllerBase
     public ActionResult<ElencoAtorDto> BuscaAtorDoFilme(string Nome)
     {
         var ator = _context.Atores.Where(a => a.Nome.Equals(Nome)).FirstOrDefault();
-        if (ator == null) return NotFound();
+        if (ator == null)
+        {
+            throw new Exception("Ator  do ID não foi encontrado.!!");
+        }
 
         var elenco = _context.Elenco.Where(e => e.AtorId == ator.Id).ToList();
-        if (elenco.Count == 0) return NotFound();
+        if (elenco.Count == 0)
+        {
+            throw new Exception("ID do Elenco  não foi encontrado.!!");
+        }
 
 
         var filmes = elenco
             .Select(e => _context.Filmes.FirstOrDefault(f => f.Id.Equals(e.FilmeId)))
             .ToList();
+        
 
 
         var atorDto = new ElencoAtorDto
