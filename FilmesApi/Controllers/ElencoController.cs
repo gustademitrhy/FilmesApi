@@ -21,8 +21,6 @@ public class ElencoController : ControllerBase
     private List<Filme> _filmes;
     private List<Ator> ators;
     
-
-
     public ElencoController(CartazContext context, IMapper mapper)
     {
         _context = context;
@@ -67,6 +65,7 @@ public class ElencoController : ControllerBase
 
 
 
+        
         var atores = new List<Ator>();
         foreach (var e in elenco)
         {

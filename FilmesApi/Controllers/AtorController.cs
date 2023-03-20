@@ -66,6 +66,7 @@ public class AtorController : ControllerBase
         return Ok("Deu certo Meu Nobre!!!! Alegria ");
     }
 
+
     [HttpPatch("{id}")]
 
     public IActionResult AtualizarAtorParcial(int id, JsonPatchDocument<UpdateAtorDto> patch)
